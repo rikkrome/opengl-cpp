@@ -2,6 +2,8 @@
 #include <cstring>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <cmath>
 
 #define GLEW_STATIC
 #include <GL/glew.h>
@@ -9,17 +11,23 @@
 
 const GLint WIDTH = 1920, HEIGHT = 1080;
 
-GLuint VAO, VBO, shader;
+GLuint VAO, VBO, shader, uniformXMove;
+
+bool direction = true;
+float triOffset = 0.0f;
+float triMaxOffset = 0.7f;
+float triIncrement = 0.0005f;
 
 // vertex shader
-static const char* vShader = "                              \n\
-#version 330                                                \n\
-                                                            \n\
-layout (location = 0) in vec3 pos;                          \n\
-                                                            \n\
-void main()                                                 \n\
-{                                                           \n\
-  gl_Position = vec4(pos.x, pos.y, pos.z, 1.0); \n\
+static const char* vShader = "                                          \n\
+#version 330                                                            \n\
+                                                                        \n\
+layout (location = 0) in vec3 pos;                                      \n\
+uniform float xMove;                                                    \n\
+                                                                        \n\
+void main()                                                             \n\
+{                                                                       \n\
+  gl_Position = vec4(0.4 * pos.x + xMove, 0.4 * pos.y, pos.z, 1.0);     \n\
 }";
 
 // Fragment Shader 
@@ -112,6 +120,8 @@ void CompileShaders() {
         return;
     }
 
+    uniformXMove = glGetUniformLocation(shader, "xMove");
+
 }
 
 int main() {
@@ -159,15 +169,26 @@ int main() {
         // Get + handle user input events
         glfwPollEvents();
 
+        if(direction) {
+          triOffset += triIncrement;
+        } else {
+          triOffset -= triIncrement;
+        }
+
+        if(abs(triOffset) >= triMaxOffset) {
+          direction = !direction;
+        }
+        
         // Clear window
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         glUseProgram(shader);
 
+        glUniform1f(uniformXMove, triOffset);
+
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3);
-
         glBindVertexArray(0); // clean up
 
         glUseProgram(0); // clean up

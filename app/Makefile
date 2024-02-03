@@ -7,6 +7,15 @@ APP := app
 # Source files
 SOURCES := main.cpp
 
+# Formatter
+FORMATTER := clang-format
+
+# Format style
+FORMAT_STYLE := file  # Uses .clang-format file in the current directory
+
+# Targets
+.PHONY: all clean format
+
 # Include paths
 INCLUDES := -I/opt/homebrew/opt/glew/include -I/opt/homebrew/opt/glfw/include -I/opt/homebrew/opt/glm/include
 
@@ -28,6 +37,10 @@ all: $(APP)
 # Rule for making the actual target
 $(APP): $(SOURCES)
 	$(CXX) $(CXXFLAGS) $(SOURCES) -o $(APP) $(LDFLAGS)
+
+# Target for formatting
+format:
+	$(FORMATTER) -i -style=$(FORMAT_STYLE) $(SOURCES)
 
 # Clean up
 clean:

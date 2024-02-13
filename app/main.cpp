@@ -66,7 +66,6 @@ int main() {
                            (GLfloat)mainWindow.getBufferHeight(),
                        0.1f, 100.0f);
 
-  printf("beefore main loop... \n");
   // Main loop
   while (!mainWindow.getShouldClose()) {
     // Get + handle user input events
@@ -98,8 +97,6 @@ int main() {
     glUniformMatrix4fv(uniformProjection, 1, GL_FALSE,
                        glm::value_ptr(projection));
     meshList[0]->RenderMesh();
-
-
 
     glUseProgram(0);  // clean up
 

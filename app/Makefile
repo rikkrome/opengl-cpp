@@ -47,7 +47,7 @@ $(APP): $(OBJECTS)
 
 # Target for formatting
 format:
-	$(FORMATTER) -i -style=$(FORMAT_STYLE) $(SOURCES)
+	$(FORMATTER) -i -style=$(FORMAT_STYLE) $(shell find . -iname '*.cpp' -o -iname '*.h')
 
 # Clean up
 clean:

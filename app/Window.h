@@ -1,28 +1,27 @@
 #pragma once
 
-#include "stdio.h"
-
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include "stdio.h"
+
 class Window {
-public:
+ public:
   Window();
   Window(GLint windowWidth, GLint windowHeight);
-  
+
   int Initialise();
 
-  GLint getBufferWidth() { return bufferWidth;}
-  GLint getBufferHeight(){ return bufferHeight;}
+  GLint getBufferWidth() { return bufferWidth; }
+  GLint getBufferHeight() { return bufferHeight; }
 
-  bool getShouldClose(){ return glfwWindowShouldClose(mainWindow);};
+  bool getShouldClose() { return glfwWindowShouldClose(mainWindow); };
 
-  void swapBuffers(){ glfwSwapBuffers(mainWindow);}
-
+  void swapBuffers() { glfwSwapBuffers(mainWindow); }
 
   ~Window();
 
-private:
+ private:
   GLFWwindow* mainWindow;
   GLint width, height;
   GLint bufferWidth, bufferHeight;

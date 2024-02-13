@@ -1,16 +1,16 @@
 #include "Window.h"
 
-Window::Window(){
+Window::Window() {
   width = 800;
   height = 600;
 }
 
-Window::Window(GLint windowWidth, GLint windowHeight){
+Window::Window(GLint windowWidth, GLint windowHeight) {
   width = windowWidth;
   height = windowHeight;
 }
 
-int Window::Initialise(){
+int Window::Initialise() {
   // Initialize GLFW
   if (!glfwInit()) {
     glfwTerminate();
@@ -48,10 +48,10 @@ int Window::Initialise(){
   glEnable(GL_DEPTH_TEST);
 
   glViewport(0, 0, bufferWidth, bufferHeight);
- return 0;
+  return 0;
 }
 
-Window::~Window(){
+Window::~Window() {
   glfwDestroyWindow(mainWindow);
   glfwTerminate();
 }

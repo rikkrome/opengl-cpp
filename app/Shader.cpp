@@ -67,7 +67,7 @@ void Shader::CompileShader(const char* vertexCode, const char* fragmentCode) {
   if (!result) {
     glGetProgramInfoLog(shaderID, sizeof(eLog), NULL, eLog);
     printf("Error validating program: %s\n", eLog);
-   // return;
+    // return;
   }
 
   uniformProjection = glGetUniformLocation(shaderID, "projection");
@@ -91,7 +91,6 @@ void Shader::ClearShader() {
 
 void Shader::AddShader(GLuint theProgram, const char* shaderCode,
                        GLenum shaderType) {
-  printf("AddShader... \n");
   GLuint theShader = glCreateShader(shaderType);
 
   const GLchar* theCode[1];

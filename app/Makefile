@@ -5,7 +5,10 @@ CXX := g++
 APP := app
 
 # Source files
-SOURCES := main.cpp
+SOURCES := main.cpp Mesh.cpp Shader.cpp Window.cpp
+
+# Object files
+OBJECTS := $(SOURCES:.cpp=.o)
 
 # Formatter
 FORMATTER := clang-format
@@ -34,9 +37,13 @@ LDFLAGS := $(LIBRARY_PATHS) $(LIBRARIES)
 # The first rule is the one executed when no parameters are fed into the Makefile
 all: $(APP)
 
+# Rule for compiling .cpp files to .o files
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
 # Rule for making the actual target
-$(APP): $(SOURCES)
-	$(CXX) $(CXXFLAGS) $(SOURCES) -o $(APP) $(LDFLAGS)
+$(APP): $(OBJECTS)
+	$(CXX) $(OBJECTS) -o $(APP) $(LDFLAGS)
 
 # Target for formatting
 format:
@@ -44,5 +51,5 @@ format:
 
 # Clean up
 clean:
-	rm -f $(APP)
+	rm -f $(APP) $(OBJECTS)
 

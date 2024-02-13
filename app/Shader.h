@@ -1,8 +1,8 @@
 #pragma
 
 #include <GL/glew.h>
-#include <stdio.h>
 
+#include <stdio.h>
 #include <fstream>
 #include <iostream>
 #include <string>

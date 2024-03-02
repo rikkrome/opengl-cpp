@@ -1,5 +1,4 @@
-#pragma
-
+pragma
 #include <GL/glew.h>
 #include <stdio.h>
 
@@ -7,7 +6,7 @@
 #include <iostream>
 #include <string>
 
-class Shader {
+    class Shader {
  public:
   Shader();
 
